@@ -1,17 +1,38 @@
+
 clear
 clc
 close all
 
+% initialise the class tokamak
+tok = tokamak;
 
-% load equilibrium (calculated from SimPla)
+% upload the geometry information of your tokamak
+tok = tok.machine_upload();
+tok = tok.scenario_upload();
+tok = tok.kinetic_upload();
 
-machine = "Tokalab";
-paths = SynDiag_init(machine);
+% initialise the class geometry
+geo = geometry;
+geo = geo.import_geometry(tok);
+geo = geo.build_geometry();
+geo = geo.inside_wall();
 
-addpath("equilibrium\")
-load("Tokalab_equi_scenario1.mat")
+% initialise the class equilibrium
+equi = equilibrium;
+equi = equi.import_configuration(geo,tok.config);
+equi = equi.import_classes();
+equi.separatrix = equi.separatrix.build_separatrix(equi.config.separatrix,equi.geo);
 
-% run your diagnostics
+% solve equilibrium
+equi = equi.solve_equilibrium();
+
+% post processing (Opoint, Xpoint, LFCS)
+equi = equi.equi_pp2();
+
+% mhd and kinetic profiles
+equi  = equi.compute_profiles();
+
+%% run your diagnostics
 
 PickUp = Diag_PickUpCoils();
 PickUp = PickUp.Upload(1);
@@ -34,10 +55,12 @@ IntPol = IntPol.Upload(1);
 IntPol = IntPol.measure(equi);
 
 Bolo = Diag_Bolo();
-Bolo  = Bolo.Upload(1);
+Bolo = Bolo.Upload(1);
 Bolo = Bolo.measure(equi);
 
 %%
+
+close all
 clc
 
 TP = TokaPlot;
@@ -45,18 +68,44 @@ TP = TokaPlot;
 % fig.config.psi_lines = [0.88 0.9 0.99 1 1.01 1.1];
 figura.config.subplot = [1 1 1];
 figura.config.plot_wall = 0;
-figura2 = figure();
+figura1 = figure();
 figura.config.hold = "on";
 
 
 % fig2.fig = figure();
 % 
 figure2.config.plot_wall = 1;
-% figure2.config.hold = "on";
+figure3.config.plot_wall = 0;
+figure2.config.hold = "on";
+figure3.config.hold = "on";
+figure4.config.hold = "on";
+figure5.config.hold = "on";
+figure4.config.plot_wall = 1;
 
-figura2 = TP.PlotField(equi,"ne", figura2, figura.config);
-figura2 = TP.PlotDiagnostics(equi,IntPol, figura2, figure2.config);
+figura1 = TP.PlotField(equi,"ne", figura1, figura.config);
+% figura1 = TP.PlotDiagnostics(equi,Bolo, figura1, figure2.config);
+figura1 = TP.PlotDiagnostics(equi,SaddleCoils, figura1, figure4.config);
+% figura1 = TP.PlotDiagnostics(equi,TS, figura1, figure5.config);
+% figura1 = TP.PlotDiagnostics(equi,PickUp, figura1, figure3.config);
+% figura1 = TP.PlotDiagnostics(equi,FluxLoops, figura1, figure3.config);
+% 
+% figura2.config.plot_wall = 1;
+% figura2.fig = figure();
+% figura2 = TP.PlotDiagnostics(equi,Bolo, figura2.fig, figura2.config);
 
-% clf
-
-figura2 = TP.PlotMeasurements(Bolo,"prj",figura2,figure2.config)
+% fig3 = figure();
+% figure3.config.subplot = [1 3 1];
+% figure3.config.axis_label = "ch";
+% figure3.config.errorplot = 0;
+% figure3.config.hold = "off";
+% 
+% figure4.config.subplot = [1 3 1];
+%
+% figure4.config.errorplot = 0;
+% figure4.config.hold = "on";
+% 
+% fig3 = TP.PlotDiagnostics(equi,TS, fig3, figure2.config);
+% fig3 = TP.PlotDiagnostics(equi,IntPol, fig3, figure2.config);
+% 
+% 
+% 

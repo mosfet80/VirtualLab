@@ -8,6 +8,8 @@ classdef separatrix_target
         Z_additional
 
         inside
+
+        touching_wall 
     end
 
     methods
@@ -15,12 +17,15 @@ classdef separatrix_target
         %% build target separatrix
         function obj = build_separatrix(obj,separatrix_config,geo) 
             
+            obj.touching_wall = 0;
+
             % evaluate separatrix coordinates
             if separatrix_config.method == 0
                 obj = build_separatrix_m0(obj,separatrix_config);
+                obj = Separatrix_Outside_Wall_v1(obj,geo);
             elseif separatrix_config.method == 1
                 obj = build_separatrix_m1(obj,separatrix_config);
-                % new method can be added here
+                obj = Separatrix_Outside_Wall_v1(obj,geo);
             end
 
             % evaluate grid points inside the separatrix
@@ -51,7 +56,6 @@ classdef separatrix_target
                 M_sep(i,ind_sep(i)) = 1;
                 V_sep(i,1) = 0;
             end
-
         end
 
         %% Evaluate points inside the separatrix
@@ -291,6 +295,22 @@ classdef separatrix_target
            
         end
 
+        %% Correct Target Separatrix if crosses the wall
+        function obj = Separatrix_Outside_Wall_v1(obj,geo)
+
+            R_sep = obj.R_sep_target;
+            Z_sep = obj.Z_sep_target;
+
+            inside = inpolygon(R_sep,Z_sep,geo.wall.R,geo.wall.Z);
+            
+            if sum(inside)<length(inside)
+                obj.touching_wall = 1;
+            end
+
+            obj.R_sep_target = R_sep(inside);
+            obj.Z_sep_target = Z_sep(inside);
+
+        end
 
     end
 

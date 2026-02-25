@@ -20,7 +20,7 @@ classdef TokaPlot
 
         %% Fields Plotting
 
-        function fig = PlotField(~,equi,field,fig,config)
+        function fig = PlotField(obj,equi,field,fig,config)
 
 
             if nargin < 2
@@ -47,8 +47,16 @@ classdef TokaPlot
 
             figure(fig)
             subplot(config.subplot(1),config.subplot(2), config.subplot(3))
+           
+            % complete the plot
+            if isfield(config, "hold") == 1 && config.hold == "on"
+                hold on
+            else
+                hold off
+            end
+
             contourf(equi.geo.grid.Rg,equi.geo.grid.Zg,equi.(field).*equi.geo.wall.inside, 50, "LineStyle", "none")
-            
+
             % plot walls, if asked
 
             if isfield(config, "plot_wall")==1 && config.plot_wall == 1
@@ -63,17 +71,11 @@ classdef TokaPlot
                 hold on
                 contour(equi.geo.grid.Rg, equi.geo.grid.Zg, equi.psi_n, config.psi_lines, '-w', 'LineWidth', 1.5)
             end
-
-            % complete the plot
-            if isfield(config, "hold") == 1 && config.hold == "on"
-                hold on
-            else
-                hold off
-            end
             
             %complete the plot
 
-            title(field)
+            uom = FieldUnitOfMeasurement(obj,field);
+            title(field + uom)
             colorbar()
             colormap("jet")
             axis equal
@@ -108,6 +110,12 @@ classdef TokaPlot
 
             figure(fig)
             subplot(config.subplot(1),config.subplot(2), config.subplot(3))
+            
+            if isfield(config, "hold") == 1 && config.hold == "on"
+                hold on
+            else
+                hold off
+            end
 
             % plot walls, if asked
 
@@ -119,7 +127,7 @@ classdef TokaPlot
                 num = config.number_of_colours;
             else
                 num = 1;
-                if isa(diag,"Diag_Bolo") 
+                if isa(diag,"Diag_Bolo")
                     num = 7;
                 end
             end
@@ -154,25 +162,25 @@ classdef TokaPlot
 
                 [Z, ~, iZ] = unique(diag.Z_in);
                 groups = arrayfun(@(k) find(iZ == k), 1:numel(Z), 'UniformOutput', false);
-               
+
                 for i = 1: length(groups)
                     plot([diag.R_in(groups{i}) diag.R_end(groups{i})]', [diag.Z_in(groups{i}) diag.Z_end(groups{i})]', '-', 'LineWidth', 1, 'MarkerSize', 16, 'Color', SpecificColor(i,:))
-                     hold on
+                    hold on
                 end
 
-                title("Bolometers")
-            end
-
-            if isfield(config, "hold") == 1 && config.hold == "on"
-                hold on
-            else
-                hold off
+                title("Bolometers")              
             end
 
             % complete the plot
             axis equal
-            xlim([-inf inf])
-            ylim([-inf inf])
+            if isa(diag,"Diag_Bolo")==0
+                xlim([equi.geo.R(1) equi.geo.R(end)]) 
+                ylim([equi.geo.Z(1) equi.geo.Z(end)])
+            else
+                R_lim = [diag.R_in diag.R_end]; Z_lim = [diag.Z_in diag.Z_end];
+                xlim([min(R_lim, [], "all") max(R_lim, [],  "all")])
+                ylim([min(Z_lim, [],  "all") max(Z_lim, [],  "all")])
+            end 
             xlabel("R [m]")
             ylabel("z [m]")
             colormap("jet")
@@ -202,63 +210,56 @@ classdef TokaPlot
 
             % Get the x axis label information
 
-            if isfield(config, "axis_label") == 1 && config.axis_label == "R"
-                if isa(diag,"Diag_SaddleCoils")
-                    R = (diag.R2 + diag.R1)./2;
-                    labelx = "R [m]";
-                elseif isa(diag,"Diag_InterferometerPolarimeter") || isa(diag,"Diag_Bolo")
-                    disp("For this diagnostic only the ch x label option is available")
-                    R = 1 : length(diag.R_in);
-                    labelx = "ch";
-                else
-                    R = diag.R;
-                    labelx = "R [m]";
-                end
-            else
                 R = 1 : length(diag.(meas));
                 labelx = "ch";
-            end
 
             % Plot
 
             figure(fig)
             subplot(config.subplot(1),config.subplot(2), config.subplot(3))
 
-            if isa(diag, "Diag_PickUpCoils")
-                titlep = "Pick-Up Coils"; % panel title
-                SpecificColor = "b"; % color plot
-                Unit = diag.unit; % unit of measurement for y axis label
+            if isfield(config, "colour")==1
+                SpecificColor = config.colour;
+                titlep = "";
+            else
 
-            elseif isa(diag, "Diag_FluxLoops")
-                titlep = "Flux Loops";
-                SpecificColor = "#77AC30";
-                Unit = diag.unit;
+                if isa(diag, "Diag_PickUpCoils")
+                    titlep = "Pick-Up Coils"; % panel title
+                    SpecificColor = "b"; % color plot
+                    Unit = diag.unit; % unit of measurement for y axis label
 
-            elseif isa(diag, "Diag_SaddleCoils")
-                titlep = "Saddle Loops";
-                SpecificColor = "r";
-                Unit = diag.unit;
+                elseif isa(diag, "Diag_FluxLoops")
+                    titlep = "Flux Loops";
+                    SpecificColor = "#77AC30";
+                    Unit = diag.unit;
 
-            elseif isa(diag, "Diag_ThomsonScattering")
-                titlep = "Thomson Scattering " + meas;
-                SpecificColor = "#D95319";
-                Unit = diag.("unit_" + meas);
+                elseif isa(diag, "Diag_SaddleCoils")
+                    titlep = "Saddle Loops";
+                    SpecificColor = "r";
+                    Unit = diag.unit;
 
-            elseif isa(diag, "Diag_InterferometerPolarimeter")
-                auxiliary_string_for_name = regexp(meas, '[A-Z]', 'match'); % procedure to extract the desiderd string
-                auxiliary_string_for_name = [auxiliary_string_for_name{:}];
-                if auxiliary_string_for_name(end) == "I"
-                    auxiliary_string_for_name = auxiliary_string_for_name(1:end-1);
-                end
+                elseif isa(diag, "Diag_ThomsonScattering")
+                    titlep = "Thomson Scattering " + meas;
+                    SpecificColor = "#D95319";
+                    Unit = diag.("unit_" + meas);
 
+                elseif isa(diag, "Diag_InterferometerPolarimeter")
+                    auxiliary_string_for_name = regexp(meas, '[A-Z]', 'match'); % procedure to extract the desiderd string
+                    auxiliary_string_for_name = [auxiliary_string_for_name{:}];
+                    if auxiliary_string_for_name(end) == "I"
+                        auxiliary_string_for_name = auxiliary_string_for_name(1:end-1);
+                    end
+                
                 titlep = auxiliary_string_for_name;
                 SpecificColor = "#A2142F";
                 Unit = diag.("unit_" + auxiliary_string_for_name);
 
-            elseif isa(diag, "Diag_Bolo")
+                elseif isa(diag, "Diag_Bolo")
                 titlep = "Bolometers";
                 SpecificColor = "#A2142F";
                 Unit = diag.unit;
+
+                end
             end
 
 
@@ -287,18 +288,48 @@ classdef TokaPlot
         %% Function Plot Walls
 
         function fig = PlotWalls(obj,equi, fig, config)
-            
+
             x1 = [equi.geo.R(1) equi.geo.R(end) equi.geo.R(end) equi.geo.R(1) equi.geo.R(1)];
             y1 = [equi.geo.Z(1) equi.geo.Z(1) equi.geo.Z(end) equi.geo.Z(end) equi.geo.Z(1)];
-            
+
+            x_extr = linspace(equi.geo.R(1),equi.geo.wall.R(1),100);
+            y_extr = linspace(equi.geo.Z(1),equi.geo.wall.Z(1),100);
+
+            %             ip_wall = inpolygon(x_extr, y_extr, equi.geo.wall.R, equi.geo.wall.Z);
+
             figure(fig)
             subplot(config.subplot(1),config.subplot(2),config.subplot(3))
-            patch([x1 equi.geo.wall.R], [y1 equi.geo.wall.Z], [0.75 0.75 0.75], "HandleVisibility","off")
+            patch([x1 equi.geo.wall.R], [y1 equi.geo.wall.Z], [0.75 0.75 0.75], "HandleVisibility","off","edgecolor", "none")
             hold on
-            plot([2.75 3.4], [-5.65 -4], 'color', [0.75 0.75 0.75], 'LineWidth', 2, "HandleVisibility","off")
-            plot(equi.geo.wall.R, equi.geo.wall.Z, '-k', 'LIneWidth', 1, "HandleVisibility","off")
+            plot(equi.geo.wall.R, equi.geo.wall.Z, '-k', 'LineWidth', 1.5)
+            %             plot(x_extr(~ip_wall), y_extr(~ip_wall), 'color', [0.75 0.75 0.75], 'LineWidth', 2, "HandleVisibility","off")
+            plot(equi.geo.R(1), equi.geo.wall.Z, '-k', 'LineWidth', 1, "HandleVisibility","off")
+            %             plot(x_extr(ip_wall), y_extr(ip_wall), 'LineStyle', 'none')
             plot([equi.geo.wall.R(1) equi.geo.wall.R(end) equi.geo.wall.R(end) equi.geo.wall.R(1) equi.geo.wall.R(1)], [equi.geo.wall.Z(1) equi.geo.wall.Z(1) equi.geo.wall.Z(end) equi.geo.wall.Z(end) equi.geo.wall.Z(1)], '-k', 'LineWidth', 1, "HandleVisibility","off")
 
+        end
+
+        %% Function Field's unit of measurement
+
+        function uom = FieldUnitOfMeasurement(obj,field)
+
+            if field == "ne" || field == "ni"
+                uom = " [m^{-3}]";
+            elseif field == "Te" || field == "Ti"
+                uom = " [eV]";
+            elseif field == "psi"
+                uom = " [Wb/rad]";
+            elseif field == "Psi"
+                uom = " [Wb]";
+            elseif field == "Br" || field == "Bt" || field == "Bz"
+                uom = " [T]";
+            elseif field == "Jr" || field == "Jt" || field == "Jz"
+                uom = " [A/m^{2}]";
+            elseif field == "psi_n"
+                uom = " [arb. units]";
+            elseif field == "p"
+                uom = " [Pa]";
+            end
         end
 
         %% Function Specify Colors
@@ -307,7 +338,7 @@ classdef TokaPlot
 
             if isa(diag, "Diag_Bolo")
                 SpecificColor = colormap(autumn(num));
-            
+
             elseif isa(diag, "Diag_FluxLoops")
                 SpecificColor = colormap(summer(num));
 
@@ -329,7 +360,7 @@ classdef TokaPlot
 
 
         end
-        
+
     end
 end
 
