@@ -10,7 +10,7 @@ function db = Benchmarking_Tomography_example()
     db{1}.config.rad_method = "phantom"; % bremsstrahlung / phantom /
     db{1}.config.rad_gen = "random"; % random / scenario /
     db{1}.config.rad_scenario = 1;
-    db{1}.config.rad_N = 10;
+    db{1}.config.rad_N = 90;
     db{1}.config.rad_seeds = 4;
     
     db{1}.config.equi_sim = 0; % utilizza solo un equilibrio

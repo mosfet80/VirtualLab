@@ -19,7 +19,7 @@ equi = equilibrium;
 equi = equi.import_configuration(geo,tok.config);
 equi = equi.import_classes();
 % equi.config.toroidal_current.alpha_2 = 1.9;
-% equi.config.separatrix.R0 = 7;
+equi.config.separatrix.R0 = 7;
 equi.separatrix = equi.separatrix.build_separatrix(equi.config.separatrix,equi.geo);
 
 % show uploaded geometry and target separatrix
@@ -63,12 +63,6 @@ figura.config.psi_lines = [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99 1 1.01 1.1];
 figura.config.subplot = [1 1 1];
 figura.config.plot_wall = 1;
 figura1 = TP.PlotField(equi,"Rad",figura1, figura.config);
-
-
-%% Database
-DB1 = SyntheticDB(1000,equi,'Analytic');
-DB1= DB1.generate();
-DB1.save('RadDB.csv')
 
 
 

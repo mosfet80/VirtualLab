@@ -2,7 +2,7 @@ clear; clc;
 
 %% Upload the dataset configuration
 
-db = Benchmarking_Tomography_v1();
+db = Benchmarking_Tomography_example();
 
 %% generation
 
@@ -11,7 +11,7 @@ db = db_gen.generate(db);
 
 %% save 
 
-db_gen.save_db(db,"riccardo")
+db_gen.save_db(db,"riccardo") %
 
 %% plot
 
@@ -66,12 +66,6 @@ grid minor
 colorbar()
 
 
-%%%%%% Cose che devo fare
 
-% equilibrio configurabile
-
-%%%%%% Domande per Wyss
-
-% generazione randomica, numeri statici? 
 
 

@@ -19,7 +19,7 @@ equi = equilibrium;
 equi = equi.import_configuration(geo,tok.config);
 equi = equi.import_classes();
 % equi.config.toroidal_current.alpha_2 = 1.9;
-% equi.config.separatrix.R0 = 7;
+equi.config.separatrix.R0 = 4;
 equi.separatrix = equi.separatrix.build_separatrix(equi.config.separatrix,equi.geo);
 
 % show uploaded geometry and target separatrix
