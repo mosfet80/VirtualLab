@@ -10,7 +10,7 @@ function geo = TCV_like_Geometry()
     geo.grid.N_R = 70;
     geo.grid.N_Z = 80;
 
-    load("DTT_like_wall.mat","Wall")
+    load("TCV_like_wall.mat","Wall")
 
     geo.wall.R = Wall(:,2)';
     geo.wall.Z = Wall(:,1)';

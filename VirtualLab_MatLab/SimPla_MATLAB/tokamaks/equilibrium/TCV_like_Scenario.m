@@ -32,8 +32,8 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         config.separatrix.gamma_p_1 = pi/6;
         config.separatrix.gamma_p_2 = pi/6;
          
-        config.separatrix.a = 0.7;
-        config.separatrix.R0 = 2.2;
+          config.separatrix.a = 0.25;
+        config.separatrix.R0 = 0.85;
         config.separatrix.Z0 = 0;
 
       elseif separatrix == 3
@@ -49,8 +49,8 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         config.separatrix.gamma_p_1 = 0;
         config.separatrix.gamma_p_2 = pi/3;
 
-        config.separatrix.a = 0.7;
-        config.separatrix.R0 = 2.2;
+          config.separatrix.a = 0.25;
+        config.separatrix.R0 = 0.85;
         config.separatrix.Z0 = 0;
 
     end
@@ -61,8 +61,8 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         % this method implement the function in (reference)
         config.toroidal_current.method = 1;
         
-        config.toroidal_current.Bt = 6;
-        config.toroidal_current.Ip = -5.5e6;
+        config.toroidal_current.Bt = 1.5;
+        config.toroidal_current.Ip = -1e6;
 
         config.toroidal_current.alpha_1 = 2;
         config.toroidal_current.alpha_2 = 2;
@@ -74,8 +74,8 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         % mwthod with reverse q profile
         config.toroidal_current.method = 2;
         
-        config.toroidal_current.Bt = 6;
-        config.toroidal_current.Ip = -6e6;
+        config.toroidal_current.Bt = 1.5;
+        config.toroidal_current.Ip = -1e6;
 
         config.toroidal_current.alpha_1 = 2;
         config.toroidal_current.alpha_2 = 2;
