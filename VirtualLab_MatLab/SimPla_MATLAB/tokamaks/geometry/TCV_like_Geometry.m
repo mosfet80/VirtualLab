@@ -12,7 +12,7 @@ function geo = TCV_like_Geometry()
 
     load("TCV_like_wall.mat","Wall")
 
-    geo.wall.R = Wall(:,2)';
-    geo.wall.Z = Wall(:,1)';
+    geo.wall.R = Wall(:,1)';
+    geo.wall.Z = Wall(:,2)';
 
 end
