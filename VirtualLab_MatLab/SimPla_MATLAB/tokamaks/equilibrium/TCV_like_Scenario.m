@@ -6,7 +6,7 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         % single-null standard tokalab scenario
         config.separatrix.scenario = 1;
         config.separatrix.method = 1;
-        config.separatrix.k1 = 2.5;
+        config.separatrix.k1 = 2.7;
         config.separatrix.k2 = 2;
         config.separatrix.d1 = 0.5;
         config.separatrix.d2 = 0.5;
@@ -23,7 +23,7 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         % Double-null standard tokalab scenario
         config.separatrix.scenario = 2;
         config.separatrix.method = 1;
-        config.separatrix.k1 = 1.7;
+        config.separatrix.k1 = 2.2;
         config.separatrix.k2 = 1.7;
         config.separatrix.d1 = 0.5;
         config.separatrix.d2 = 0.5;
@@ -40,7 +40,7 @@ function config = TCV_like_Scenario(separatrix,toroidal_current_method)
         % Negative Triangularity
         config.separatrix.scenario = 3;
         config.separatrix.method = 1;
-        config.separatrix.k1 = 1.7;
+        config.separatrix.k1 = 2.2;
         config.separatrix.k2 = 2;
         config.separatrix.d1 = -0.5;
         config.separatrix.d2 = -0.5;
