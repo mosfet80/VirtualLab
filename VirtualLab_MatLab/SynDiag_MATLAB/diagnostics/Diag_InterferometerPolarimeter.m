@@ -449,13 +449,23 @@ classdef Diag_InterferometerPolarimeter
 
                     if configuration == 1
 
+                        % % 4 Vertical lines
+                        % R_in = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
+                        % R_out = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
+                        % Z_in = [5; 5; 5; 5];
+                        % Z_out = [-5; -5; -5; -5];
+
                         % 4 Vertical lines
-                        R_in = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
-                        R_out = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
+                        R_in = [4; 5.4; 6.8; 8];
+                        R_out = [4; 5.4; 6.8; 8];
                         Z_in = [5; 5; 5; 5];
                         Z_out = [-5; -5; -5; -5];
 
-                       
+                        % 4 Horizontal lines
+                        R_in = [R_in; 9; 9; 9; 9];
+                        R_out = [R_out; 3.4; 3.4; 3.4; 3.4];
+                        Z_in = [Z_in; 0; 0; 0; 0];
+                        Z_out = [Z_out; -3.2; -1.4; -0.2; 1];
 
                         obj.R_in = R_in;
                         obj.R_out = R_out;
@@ -484,6 +494,7 @@ classdef Diag_InterferometerPolarimeter
 
                         obj.config.CM_noise_random_absolute_intensity = 0;
                         obj.config.CM_noise_random_proportional_intensity = 0;
+
 
                     end
 

@@ -128,6 +128,25 @@ classdef Diag_ThomsonScattering
 
                 end
             end
+            %%%%%%%%%%%% TCV-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            if machine == "TCV-like"
+
+                if configuration == 1
+
+                    obj.config.configuration = 1;
+
+                    obj.R = linspace(6,8.4,60);
+                    obj.Z = linspace(0,0.5,60);
+
+                    obj.config.ne_noise_random_absolute_intensity = 0;
+                    obj.config.Te_noise_random_absolute_intensity = 0;
+
+                    obj.config.ne_noise_random_proportional_intensity = 0;
+                    obj.config.Te_noise_random_proportional_intensity = 0;
+
+                end
+            end
         end
 
         %% Plotting Functions
