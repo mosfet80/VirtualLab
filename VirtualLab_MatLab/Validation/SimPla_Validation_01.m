@@ -21,7 +21,7 @@ clear; clc;
 
 % tokamak class
 tok = tokamak;
-tok = tok.machine_upload('TCV-like');
+tok = tok.machine_upload();
 tok = tok.scenario_upload(1,1);
 tok = tok.kinetic_upload();
 
