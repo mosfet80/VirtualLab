@@ -51,6 +51,8 @@ classdef tokamak
                 geo = DTT_like_Geometry();
             elseif machine == "JET-like"
                 geo = JET_like_Geometry();
+            elseif machine == "TCV-like"
+                geo = TCV_like_Geometry();
             elseif machine == "NewMachine"
                 geo = NewMachine_Geometry();
             end
@@ -93,6 +95,8 @@ classdef tokamak
                 config = DTT_like_Scenario(separatrix,Jt_method);
             elseif machine == "JET-like"
                 config = JET_like_Scenario(separatrix,Jt_method);
+            elseif machine == "TCV-like"
+                config = TCV_like_Scenario(separatrix,Jt_method);
             elseif machine == "NewMachine"
                 config = NewMachine_Scenario(separatrix,Jt_method);
             end
@@ -118,6 +122,8 @@ classdef tokamak
                 config = DTT_like_Kinetic();
             elseif machine == "JET-like"
                 config = JET_like_Kinetic();
+           elseif machine == "TCV-like"
+               config = TCV_like_Kinetic();
             elseif machine == "NewMachine"
                 config = Tokalab_Kinetic();
             end

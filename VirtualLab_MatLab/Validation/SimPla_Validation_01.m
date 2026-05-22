@@ -124,7 +124,7 @@ colorbar()
 title("Double Null - T_e [eV]")
 
 subplot(1,3,3)
-contourf(NT.geo.grid.Rg,NT.geo.grid.Zg,NT.Jt,30,'LineStyle','none')
+contourf(NT.geo.grid.Rg,NT.geo.grid.Zg,NT.pe,30,'LineStyle','none')
 hold on
 contour(NT.geo.grid.Rg,NT.geo.grid.Zg,NT.psi_n,[0.25 0.5 0.75 0.9 0.99 1 1.01],'w')
 plot(geo.wall.R,geo.wall.Z,'-k','LineWidth',2)
@@ -137,4 +137,4 @@ xlabel("R [m]")
 ylabel("Z [m]")
 axis equal
 colorbar()
-title("Negative Triangularity - J_{\phi} [A/m^2]")
+title("Negative Triangularity - Pe [Pa]")

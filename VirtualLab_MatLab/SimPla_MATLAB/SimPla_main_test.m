@@ -13,7 +13,7 @@ addpath tokamaks\kinetic\
 tok = tokamak;
 
 % upload the geometry information of your tokamak
-tok = tok.machine_upload();
+tok = tok.machine_upload('TCV-like');
 tok = tok.scenario_upload();
 tok = tok.kinetic_upload();
 

@@ -300,8 +300,10 @@ classdef Diag_InterferometerPolarimeter
 
             %%%%%%%%%%%% TokaLab Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            if machine == "TokaLab"
-
+            % if machine == "TokaLab"
+            switch machine
+                    
+                case "TokaLab"
                 if configuration == 1
 
                     % 4 Vertical lines
@@ -345,11 +347,11 @@ classdef Diag_InterferometerPolarimeter
                     obj.config.CM_noise_random_proportional_intensity = 0;
 
                 end
-            end
+           
 
             %%%%%%%%%%%% JET-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            if machine == "JET-like"
+            case "JET-like"
 
                 if configuration == 1
 
@@ -394,11 +396,11 @@ classdef Diag_InterferometerPolarimeter
                     obj.config.CM_noise_random_proportional_intensity = 0;
 
                 end
-            end
+          
 
             %%%%%%%%%%%% DTT-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            if machine == "DTT-like"
+             case "DTT-like"
 
                 if configuration == 1
 
@@ -443,6 +445,60 @@ classdef Diag_InterferometerPolarimeter
                     obj.config.CM_noise_random_proportional_intensity = 0;
 
                 end
+                case "TCV-like"
+
+                    if configuration == 1
+
+                        % % 4 Vertical lines
+                        % R_in = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
+                        % R_out = [1.062; 1.039; 1.001; 0.972; 0.932; 0.903; 0.876; 0.856; 0.829; 0.787; 0.772; 0.746; 0.721; 0.691];
+                        % Z_in = [5; 5; 5; 5];
+                        % Z_out = [-5; -5; -5; -5];
+
+                        % 4 Vertical lines
+                        R_in = [4; 5.4; 6.8; 8];
+                        R_out = [4; 5.4; 6.8; 8];
+                        Z_in = [5; 5; 5; 5];
+                        Z_out = [-5; -5; -5; -5];
+
+                        % 4 Horizontal lines
+                        R_in = [R_in; 9; 9; 9; 9];
+                        R_out = [R_out; 3.4; 3.4; 3.4; 3.4];
+                        Z_in = [Z_in; 0; 0; 0; 0];
+                        Z_out = [Z_out; -3.2; -1.4; -0.2; 1];
+
+                        obj.R_in = R_in;
+                        obj.R_out = R_out;
+                        obj.Z_in = Z_in;
+                        obj.Z_out = Z_out;
+
+                        % laser info and constants
+                        obj.config.C1 = 2.45e-11;
+                        obj.config.C3 = 5.26e-13;
+                        obj.config.lambda = 75e-6; % um
+
+                        % Polarisation state (linear at 45°)
+                        obj.config.alpha = [pi/4 pi/4 pi/4 pi/4 pi/4 pi/4 pi/4 pi/4];
+                        obj.config.phi = [0 0 0 0 0 0 0 0];
+
+                        % Discretisation
+                        obj.config.LID_N_discretisation = 30;
+                        obj.config.POL_N_discretisation = 30;
+
+                        % noise information
+                        obj.config.LID_noise_random_absolute_intensity = 0;
+                        obj.config.LID_noise_random_proportional_intensity = 0;
+
+                        obj.config.FAR_noise_random_absolute_intensity = 0;
+                        obj.config.FAR_noise_random_proportional_intensity = 0;
+
+                        obj.config.CM_noise_random_absolute_intensity = 0;
+                        obj.config.CM_noise_random_proportional_intensity = 0;
+
+
+                    end
+
+
             end 
             
         end

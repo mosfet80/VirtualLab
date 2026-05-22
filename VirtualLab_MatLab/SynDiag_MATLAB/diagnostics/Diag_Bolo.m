@@ -158,6 +158,31 @@ classdef Diag_Bolo
                 end
             end
 
+            %%%%%%%%%%%% TCV-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            if machine == "TCV-like"
+
+                if configuration == 1
+                    load("Bolo_TCVlike_config_1.mat");
+                    obj.config.configuration = 1;
+
+                    obj.R_in = Bolo.plot.start(:,1);
+                    obj.Z_in = Bolo.plot.start(:,2);
+                    obj.R_end = Bolo.plot.end(:,1);
+                    obj.Z_end = Bolo.plot.end(:,2);
+
+                    obj.R_grid  =Bolo.Rgrid;
+                    obj.Z_grid = Bolo.Zgrid;
+
+                    obj.Weights= Bolo.Weights;
+                    obj.W= Bolo.W;
+                    obj.config.prj_noise_random_absolute_intensity = 0;
+
+                    obj.config.prj_noise_random_proportional_intensity = 0;
+
+                end
+            end
+
         end
 
 
