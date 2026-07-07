@@ -2,7 +2,7 @@ clear; clc;
 clf
 close all
 
-machine = "JET-like";
+machine = "TokaLab";
 
 % initialise the class tokamak
 tok = tokamak();
@@ -29,10 +29,10 @@ equi.separatrix = equi.separatrix.build_separatrix(equi.config.separatrix,equi.g
 new_points_R = [];%new_points_R(1:end);
 new_points_Z = [];%new_points_Z(1:end);
 
-equi.separatrix.R_additional = new_points_R;
-equi.separatrix.Z_additional = new_points_Z;
-
-equi.config.GSsolver.maxIter = 5;
+% equi.separatrix.R_additional = new_points_R;
+% equi.separatrix.Z_additional = new_points_Z;
+% 
+% equi.config.GSsolver.maxIter = 5;
 equi = equi.solve_equilibrium_dimless();
 equi = equi.equi_pp2();
 
@@ -83,7 +83,7 @@ clc
 
 TP = TokaPlot;
 
-% fig.config.psi_lines = [0.88 0.9 0.99 1 1.01 1.1];
+figura.config.psi_lines = [0.5 0.6 0.88 0.9 0.99 1 1.01 1.1];
 figura.config.subplot = [1 1 1];
 figura.config.plot_wall = 1;
 figura1 = figure();
@@ -101,7 +101,7 @@ figure4.config.hold = "on";
 figure5.config.hold = "on";
 figure4.config.plot_wall = 1;
 
-figura1 = TP.PlotField(equi,"ne", figura1, figura.config);
+figura1 = TP.PlotField(equi,"Te", figura1, figura.config);
 config2.hold = "on";
 % TP.PlotCoils(figura1, config2, coils)
 % figura1 = TP.PlotDiagnostics(equi,Bolo, figura1, figure2.config);
@@ -125,11 +125,11 @@ fig3 = figure();
 % figure4.config.errorplot = 0;
 % figure4.config.hold = "on";
 % 
-fig3 = TP.PlotDiagnostics(equi,TS, fig3, figure2.config);
 fig3 = TP.PlotDiagnostics(equi,IntPol, fig3, figure2.config);
-fig3 = TP.PlotDiagnostics(equi,PickUp, fig3, figure2.config);
-fig3 = TP.PlotDiagnostics(equi,FluxLoops, fig3, figure2.config);
-fig3 = TP.PlotDiagnostics(equi,SaddleCoils, fig3, figure2.config);
+% fig3 = TP.PlotDiagnostics(equi,IntPol, fig3, figure2.config);
+% fig3 = TP.PlotDiagnostics(equi,PickUp, fig3, figure2.config);
+% fig3 = TP.PlotDiagnostics(equi,FluxLoops, fig3, figure2.config);
+% fig3 = TP.PlotDiagnostics(equi,SaddleCoils, fig3, figure2.config);
 
 
 % 

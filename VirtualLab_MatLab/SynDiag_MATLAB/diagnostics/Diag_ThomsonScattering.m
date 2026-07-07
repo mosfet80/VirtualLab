@@ -126,6 +126,19 @@ classdef Diag_ThomsonScattering
                     obj.config.ne_noise_random_proportional_intensity = 0;
                     obj.config.Te_noise_random_proportional_intensity = 0;
 
+                elseif configuration == 2
+
+                    obj.config.configuration = 1;
+
+                    obj.R = linspace(2.3,2.1,60);
+                    obj.Z = linspace(1,-1,60);
+
+                    obj.config.ne_noise_random_absolute_intensity = 0;
+                    obj.config.Te_noise_random_absolute_intensity = 0;
+
+                    obj.config.ne_noise_random_proportional_intensity = 0;
+                    obj.config.Te_noise_random_proportional_intensity = 0;
+
                 end
             end
         end
