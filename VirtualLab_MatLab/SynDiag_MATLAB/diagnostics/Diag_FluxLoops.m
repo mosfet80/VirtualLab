@@ -116,6 +116,25 @@ classdef Diag_FluxLoops
 
                 end
             end
+
+            %%%%%%%%%%%% TCV-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            if machine == "TCV-like"
+
+                if configuration == 1
+
+                    obj.config.configuration = 1;
+
+                    load("FluxLoopsData_TCVlike_config_1.mat")
+
+                    obj.R = R;
+                    obj.Z = Z;
+
+                    obj.config.noise_random_absolute_intensity = 0;
+                    obj.config.noise_random_proportional_intensity = 0;
+
+                end
+            end
         end
 
 

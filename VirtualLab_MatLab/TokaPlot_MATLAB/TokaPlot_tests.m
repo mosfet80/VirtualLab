@@ -83,7 +83,11 @@ clc
 
 TP = TokaPlot;
 
+<<<<<<< HEAD
 figura.config.psi_lines = [0.5 0.6 0.88 0.9 0.99 1 1.01 1.1];
+=======
+figura.config.psi_lines = [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99 1 1.01 1.1];
+>>>>>>> 42da3b78c59383cff9c1c7323ac51f74a67eedd0
 figura.config.subplot = [1 1 1];
 figura.config.plot_wall = 1;
 figura1 = figure();
