@@ -35,7 +35,7 @@ classdef tokamak
             % machine - it indicates the machine to be uploaded.
             % if machine is not used, tokamak.machine_upload(), machine = "Tokalab" is used
             %
-            % Then, it uploadd the machine specific geometry (major and
+            % Then, it uploaded the machine specific geometry (major and
             % minor radii, grid information, and wall contours).
 
             if nargin < 2
@@ -71,7 +71,7 @@ classdef tokamak
             % separatrix - is a number (e.g. 1) which indicates the
             % scenario to be used (see Tokalab_Scenario as example)
             %
-            % Jt_method - is a number (e.g.) which defiens the
+            % Jt_method - is a number (e.g.) which defines the
             % functionality between toroidal current and poloidal flux
             % (see Tokalab_Scenario as example)
             %
