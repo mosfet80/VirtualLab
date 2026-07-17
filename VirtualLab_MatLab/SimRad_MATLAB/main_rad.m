@@ -1,5 +1,5 @@
 clear; clc;
-
+addpath('functions_rad\')
 % initialise the class tokamak
 tok = tokamak;
 
@@ -15,9 +15,11 @@ geo = geo.build_geometry();
 geo = geo.inside_wall();
 
 % initialise the class equilibrium
-equi = equilibrium_dimless;
+equi = equilibrium;
 equi = equi.import_configuration(geo,tok.config);
 equi = equi.import_classes();
+% equi.config.toroidal_current.alpha_2 = 1.9;
+equi.config.separatrix.R0 = 7;
 equi.separatrix = equi.separatrix.build_separatrix(equi.config.separatrix,equi.geo);
 
 % show uploaded geometry and target separatrix
@@ -37,37 +39,34 @@ equi = equi.equi_pp2();
 equi  = equi.compute_profiles();
 
 % plot my equilibrium and profiles
-figure(2)
-clf
-equi.plot_fields("ne",1)
-hold on
-equi.geo.plot_wall
+% figure(2)
+% clf
+% equi.plot_fields("ne",1)
+% hold on
+% equi.geo.plot_wall
 
-%% run your diagnostics
+%% 
+rad = radiation();
+rad = rad.initialise_brems(1);
+rad = rad.initialise_phantoms(2);
+equi.Rad= rad.analytic.calculation_phantom(equi);
+Bolo = Diag_Bolo();
+Bolo  = Bolo.Upload(1);
+Bolo = Bolo.measure(equi);
 
-PickUp = Diag_PickUpCoils();
-PickUp = PickUp.Upload(1);
-PickUp = PickUp.measure(equi);
-figure(3); clf; PickUp.plot_StandAlone();
+%%
+equi.Rad= rad.analytic.calculation_phantom(equi);
 
-FluxLoops = Diag_FluxLoops();
-FluxLoops = FluxLoops.Upload(1);
-FluxLoops = FluxLoops.measure(equi);
-figure(4); clf; FluxLoops.plot_StandAlone();
+TP = TokaPlot();
+figura1 = figure(1);
+figura.config.psi_lines = [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99 1 1.01 1.1];
+figura.config.subplot = [1 1 1];
+figura.config.plot_wall = 1;
+figura1 = TP.PlotField(equi,"Rad",figura1, figura.config);
 
-SaddleCoils = Diag_SaddleCoils();
-SaddleCoils = SaddleCoils.Upload(1);
-SaddleCoils = SaddleCoils.measure(equi);
-figure(5); clf; SaddleCoils.plot_StandAlone();
 
-TS = Diag_ThomsonScattering();
-TS = TS.Upload(1);
-TS = TS.measure(equi);
-figure(6); clf; TS.plot_StandAlone()
 
-IntPol = Diag_InterferometerPolarimeter();
-IntPol = IntPol.Upload(1);
-IntPol = IntPol.measure(equi);
-figure(7); clf; IntPol.plot_StandAlone;
+
+
 
 

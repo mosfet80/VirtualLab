@@ -113,7 +113,29 @@ classdef Diag_SaddleCoils
 
                     obj.config.configuration = 1;
 
-                    load("SaddleCoilsData_DTTlike_config_1.mat")
+                    load("SaddleCoilsData_DTTlike_config_1.mat", "R1", "R2", "Z1", "Z2")
+
+                    obj.R1 = R1;
+                    obj.Z1 = Z1;
+
+                    obj.R2 = R2;
+                    obj.Z2 = Z2;
+
+                    obj.config.noise_random_absolute_intensity = 0;
+
+                    obj.config.noise_random_proportional_intensity = 0;
+
+                end
+            end
+
+            %%%%%%%%%%%% TCV-like Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            if machine == "TCV-like"
+                if configuration == 1
+
+                    obj.config.configuration = 1;
+
+                    load("SaddleCoilsData_TCVlike_config_1.mat", "R1", "R2", "Z1", "Z2")
 
                     obj.R1 = R1;
                     obj.Z1 = Z1;

@@ -13,16 +13,37 @@ Riccardo Rossi, University of Rome "Tor Vergata"
 Novella Rutigliano, University of Rome "Tor Vergata"  
 Ivan Wyss, University of Rome "Tor Vergata"  
 
-## SimPla - Simulated Plasma Module
+## VirtualLab Modules
+
+### DataGen - Database Generation 
+Valentina D'Agostino, University of Rome "Tor Vergata"  
+Riccardo Rossi, University of Rome "Tor Vergata"   
+Ivan Wyss, University of Rome "Tor Vergata"  
+
+### SimPla - Simulated Plasma
 Simone Kaldas, University of Rome "Tor Vergata"  
 Riccardo Rossi, University of Rome "Tor Vergata"  
 Novella Rutigliano, University of Rome "Tor Vergata"  
 Ivan Wyss, University of Rome "Tor Vergata"  
 
-## SynDiag - Synthetic Diagnostics
+### SimRad - Simulated Radiation
+Valentina D'Agostino, University of Rome "Tor Vergata"   
+Ivan Wyss, University of Rome "Tor Vergata"  
+
+### SynDiag - Synthetic Diagnostics
 Simone Kaldas, University of Rome "Tor Vergata"  
 Riccardo Rossi, University of Rome "Tor Vergata"  
 Novella Rutigliano, University of Rome "Tor Vergata"  
+Ivan Wyss, University of Rome "Tor Vergata"  
+
+### TokaPlot - Advanced and Automatic Plotting 
+Novella Rutigliano, University of Rome "Tor Vergata"
+
+## BenchLab Modules
+
+### Tomography Emissivity
+Valentina D'Agostino, University of Rome "Tor Vergata"  
+Riccardo Rossi, University of Rome "Tor Vergata"   
 Ivan Wyss, University of Rome "Tor Vergata"  
 
 

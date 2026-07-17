@@ -172,8 +172,8 @@ classdef geometry
             axis equal
             grid on
             grid minor
-            xlabel('R (Major Radius)');
-            ylabel('Z (Vertical Coordinate)');
+            xlabel('R [m]');
+            ylabel('Z [m]');
 
         end
 
@@ -185,8 +185,8 @@ classdef geometry
             plot(obj.wall.R, obj.wall.Z, '-k', 'LineWidth', 2) % Plot wall
             grid on
             grid minor
-            xlabel('R (Major Radius)');
-            ylabel('Z (Vertical Coordinate)');
+            xlabel('R [m]');
+            ylabel('Z [m]');
 
         end
     end

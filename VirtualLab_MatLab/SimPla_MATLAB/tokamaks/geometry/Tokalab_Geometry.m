@@ -1,4 +1,4 @@
-function geo = Tokalab_like_Geometry()
+function geo = Tokalab_Geometry()
     
     %% Tokalab Geometry
     geo.R0 = 6;
